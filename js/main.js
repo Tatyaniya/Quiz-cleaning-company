@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 parent.classList.remove('active-radio');
                 parent.classList.remove('active-checkbox');
             });
-
         }
 
         // выбор radio и checkbox
@@ -154,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
             }
-
         });
     });
 
@@ -169,6 +167,13 @@ document.addEventListener('DOMContentLoaded', function() {
             answersObj.step4.phone = document.getElementById('quiz-phone').value;
             answersObj.step4.email = document.getElementById('quiz-email').value;
             answersObj.step4.call = document.getElementById('quiz-call').value;
+
+            // проверка, не пустые ли поля
+            // for (let key in answersObj.step4) {
+            //   if (answersObj.step4[key].value === "") {
+            //     alert("Введите данные во все поля");
+            //   }
+            // }
 
             // если чекнута обработка персональных данных
             if (document.getElementById('quiz-policy').checked) {
@@ -185,11 +190,9 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 alert('Дайте согласие на обработку персональных данных');
             }
-
         });
     }
 
-    
     const postData = (body) => {
         return fetch('../server.php', {
             method: 'POST',
@@ -204,6 +207,27 @@ document.addEventListener('DOMContentLoaded', function() {
     quiz.style.display = "none";
 
     passTestButton.addEventListener('click', () => {
+        formItems.forEach((formItem, formItemIndex) => {
+            if (formItemIndex === 0) {
+              formItem.style.display = "block";
+            } else {
+              formItem.style.display = "none";
+            }
+      
+            // сбрасываем все значения
+            const inputs = formItem.querySelectorAll("input");
+            inputs.forEach((input) => {
+              const parent = input.parentNode;
+              input.checked = false;
+              parent.classList.remove("active-radio");
+              parent.classList.remove("active-checkbox");
+            });
+        });
+    
+        btnsNext.forEach((btn) => {
+        btn.disabled = true;
+        });
+
         overlay.style.display = 'block';
         quiz.style.display = 'block';
     });
