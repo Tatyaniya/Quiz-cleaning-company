@@ -177,7 +177,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // если чекнута обработка персональных данных
             if (document.getElementById('quiz-policy').checked) {
-                postData(answersObj).then((res) => {
+                postData(answersObj)
+                .then((res) => res.json())
+                .then((res) => {
                     if (res['status'] === 'ok') {
                         overlay.style.display = 'none';
                         quiz.style.display = 'none';
@@ -194,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const postData = (body) => {
-        return fetch('../server.php', {
+        return fetch('./server.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
