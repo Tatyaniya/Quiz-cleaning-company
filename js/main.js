@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const formItems = form.querySelectorAll('fieldset');
     const btnsNext = form.querySelectorAll('.form-button__btn-next');
     const btnsPrev = form.querySelectorAll('.form-button__btn-prev');
+    const quizPositionPercentChange = document.getElementById('quiz-position__percent-change');
+    // процент прохождения
+    let itemPercent = 100 / (formItems.length - 1);
+    
     const answersObj = {
         step0: {
             question: '',
@@ -38,6 +42,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             formItems[btnIndex].style.display = 'none';
             formItems[btnIndex + 1].style.display = 'block';
+
+            quizPositionPercentChange.textContent = itemPercent * (btnIndex + 2);
+
+            if (btnIndex === btnsNext.length -2) {
+                quizPositionPercentChange.textContent = itemPercent * (btnIndex + 2) - 1;
+            }
         });
 
         btn.disabled = true;
@@ -232,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         overlay.style.display = 'block';
         quiz.style.display = 'block';
+        quizPositionPercentChange.textContent = itemPercent;
     });
 
     sendForm();
