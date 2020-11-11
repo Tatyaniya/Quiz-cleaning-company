@@ -43,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
             formItems[btnIndex].style.display = 'none';
             formItems[btnIndex + 1].style.display = 'block';
 
+            // по клику на первую кнопку - 0 индекс, поэтому + 2
             quizPositionPercentChange.textContent = itemPercent * (btnIndex + 2);
 
+            // если предпоследний филдсет, отнимаем 1 (99%)
             if (btnIndex === btnsNext.length -2) {
                 quizPositionPercentChange.textContent = itemPercent * (btnIndex + 2) - 1;
             }
@@ -69,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // в блоке под индексом 1 находится кнопка 0, т.к. их на 1 меньше
             formItems[i + 1].style.display = 'none';
             formItems[i].style.display = 'block';
+
+            quizPositionPercentChange.textContent = itemPercent * (i + 2) - itemPercent;
         });
     }
 
@@ -242,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         overlay.style.display = 'block';
         quiz.style.display = 'block';
+        // записываем первый процент прохождения
         quizPositionPercentChange.textContent = itemPercent;
     });
 
